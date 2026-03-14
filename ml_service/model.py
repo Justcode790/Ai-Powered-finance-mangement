@@ -1059,11 +1059,32 @@ def generate_allocation_rationale(
 
 
 @app.on_event("startup")
-async def _startup():
-    load_model()
-    load_budget_model()
-    load_anomaly_behavior_model()
-    load_spending_analysis_model()
+async def startup_event():
+    try:
+        load_model()
+        print("✅ Main model loaded")
+    except Exception as e:
+        print(f"⚠️ Main model failed: {e}")
+    
+    try:
+        load_budget_model()
+        print("✅ Budget model loaded")
+    except Exception as e:
+        print(f"⚠️ Budget model failed: {e}")
+    
+    try:
+        load_anomaly_behavior_model()
+        print("✅ Anomaly model loaded")
+    except Exception as e:
+        print(f"⚠️ Anomaly model failed: {e}")
+    
+    try:
+        load_spending_analysis_model()
+        print("✅ Spending model loaded")
+    except Exception as e:
+        print(f"⚠️ Spending model failed: {e}")
+    
+    print("🚀 ML Service startup complete")
 
 
 @app.get("/")
@@ -1564,3 +1585,8 @@ async def analyze_spending_anomaly(req: SpendingTransactionRequest):
             'error': 'Analysis failed',
             'message': str(e)
         }
+
+# Add main block for local development
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
