@@ -24,8 +24,7 @@ const app = express();
 const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
     ? [
-        'https://your-netlify-app.netlify.app',
-        'https://your-custom-domain.com'
+        'https://aipowerfinance.netlify.app'
       ]
     : ['http://localhost:3000', 'http://localhost:5173'],
   credentials: true,
